@@ -7,6 +7,7 @@
 //
 
 #import "OpenGLView.h"
+#import "CC3GLMatrix.h"
 
 //一个用于跟踪所有顶点信息的结构Vertex （目前只包含位置和颜色。）
 typedef struct {
@@ -16,10 +17,10 @@ typedef struct {
 
 //定义了以Vertex结构为类型的array。
 const Vertex Vertices[] = {
-    {{1, -1, 0}, {1, 0, 0, 1}},
-    {{1, 1, 0}, {0, 1, 0, 1}},
-    {{-1, 1, 0}, {0, 0, 1, 1}},
-    {{-1, -1, 0}, {0, 0, 0, 1}}
+    {{1, -1, -7}, {1, 0, 0, 1}},
+    {{1, 1, -7}, {0, 1, 0, 1}},
+    {{-1, 1, -7}, {0, 0, 1, 1}},
+    {{-1, -1, -7}, {0, 0, 0, 1}}
 };
 
 //一个用于表示三角形顶点的数组。
@@ -105,6 +106,8 @@ const GLubyte Indices[] = {
     _colorSlot = glGetAttribLocation(programHandle, "SourceColor");
     glEnableVertexAttribArray(_positionSlot);
     glEnableVertexAttribArray(_colorSlot);
+    
+    _projectionUniform = glGetUniformLocation(programHandle, "Projection");
 }
 
 
@@ -237,6 +240,11 @@ const GLubyte Indices[] = {
     
     glClearColor(0, 104.0/255.0, 55.0/255.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
+    
+    CC3GLMatrix *projection = [CC3GLMatrix matrix];
+    float h =4.0f* self.frame.size.height / self.frame.size.width;
+    [projection populateFromFrustumLeft:-2 andRight:2 andBottom:-h/2 andTop:h/2 andNear:4 andFar:10];
+    glUniformMatrix4fv(_projectionUniform, 1, 0, projection.glMatrix);
     
     //1.调用glViewport 设置UIView中用于渲染的部分。这个例子中指定了整个屏幕。但如果你希望用更小的部分，你可以更变这些参数。
     glViewport(0, 0, self.frame.size.width, self.frame.size.height);
