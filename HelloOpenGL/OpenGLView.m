@@ -254,8 +254,10 @@ const GLubyte Indices[] = {
     
     CC3GLMatrix *modelView = [CC3GLMatrix matrix];
     float x = sin(CACurrentMediaTime());
-    float z = fabs(x)*-4;
+    float z = fabs(x)*4-10;
     [modelView populateFromTranslation:CC3VectorMake(x, 0, z)];
+    _currentRotation += displayLink.duration *90;
+    [modelView rotateBy:CC3VectorMake(_currentRotation, _currentRotation, 0)];
     glUniformMatrix4fv(_modelViewUniform, 1, 0, modelView.glMatrix);
     
     //1.调用glViewport 设置UIView中用于渲染的部分。这个例子中指定了整个屏幕。但如果你希望用更小的部分，你可以更变这些参数。
