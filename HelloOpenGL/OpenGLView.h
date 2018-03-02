@@ -22,6 +22,8 @@
     GLuint _projectionUniform;
     GLuint _modelViewUniform;
     float _currentRotation;
+    
+    GLuint _depthRenderBuffer;
 
 }
 
