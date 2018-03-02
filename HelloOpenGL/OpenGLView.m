@@ -11,8 +11,8 @@
 
 //一个用于跟踪所有顶点信息的结构Vertex （目前只包含位置和颜色。）
 typedef struct {
-    float Position[3];
-    float Color[4];
+    float Position[3]; //位置 x,y,z
+    float Color[4];    //颜色 r,g,b,a
 } Vertex;
 
 ////定义了以Vertex结构为类型的array。
@@ -29,15 +29,16 @@ typedef struct {
 //    2, 3, 0
 //};
 
+//立体顶点数组
 const Vertex Vertices[] = {
     {{1, -1, 0}, {1, 0, 0, 1}},
-    {{1, 1, 0}, {1, 0, 0, 1}},
-    {{-1, 1, 0}, {0, 1, 0, 1}},
+    {{1, 1, 0}, {1, 0, 1, 1}},
+    {{-1, 1, 0}, {1, 1, 0, 1}},
     {{-1, -1, 0}, {0, 1, 0, 1}},
-    {{1, -1, -1}, {1, 0, 0, 1}},
-    {{1, 1, -1}, {1, 0, 0, 1}},
-    {{-1, 1, -1}, {0, 1, 0, 1}},
-    {{-1, -1, -1}, {0, 1, 0, 1}}
+    {{1, -1, -1}, {0, 1, 1, 1}},
+    {{1, 1, -1}, {0, 0, 1, 1}},
+    {{-1, 1, -1}, {1, 1, 1, 1}},
+    {{-1, -1, -1}, {0, 0, 0, 1}}
 };
 
 const GLubyte Indices[] = {
@@ -65,6 +66,7 @@ const GLubyte Indices[] = {
 
 @implementation OpenGLView
 
+//加载资源
 - (GLuint)compileShader:(NSString*)shaderName withType:(GLenum)shaderType {
     
     // 1
@@ -144,6 +146,7 @@ const GLubyte Indices[] = {
     _modelViewUniform = glGetUniformLocation(programHandle, "Modelview");
 }
 
+//启用定时器
 - (void)setupDisplayLink {
     CADisplayLink* displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(render:)];
     [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
@@ -154,15 +157,15 @@ const GLubyte Indices[] = {
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setupLayer];
-        [self setupContext];
-        [self setupDepthBuffer];
-        [self setupRenderBuffer];
-        [self setupFrameBuffer];
-        [self compileShaders];
-        [self setupVBOs];
+        [self setupLayer]; //初始化layer
+        [self setupContext]; //初始化上下文
+        [self setupDepthBuffer]; //初始化深度缓冲
+        [self setupRenderBuffer]; //初始化渲染缓冲
+        [self setupFrameBuffer];  //初始化帧缓冲
+        [self compileShaders];    //加载材质信息
+        [self setupVBOs];         //初始化顶点缓存
         
-        [self setupDisplayLink];
+        [self setupDisplayLink];  //开启定时器
 
     }
     return self;
@@ -175,6 +178,12 @@ const GLubyte Indices[] = {
 
 - (void)setupVBOs {
     
+    /*
+     两种跟踪顶点信息的缓存类型
+        1、跟踪每个顶点信息的
+        2、跟踪组成每个三角形的索引信息
+     */
+    //第一种方式
     GLuint vertexBuffer;
     //glGenBuffers - 创建一个Vertex Buffer 对象
     glGenBuffers(1, &vertexBuffer);
@@ -185,6 +194,7 @@ const GLubyte Indices[] = {
     //glBufferData – 把数据传到OpenGL-land
     glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
     
+    //第二种方式
     GLuint indexBuffer;
     glGenBuffers(1, &indexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
@@ -207,6 +217,8 @@ const GLubyte Indices[] = {
 - (void)setupDepthBuffer {
     glGenRenderbuffers(1, &_depthRenderBuffer);
     glBindRenderbuffer(GL_RENDERBUFFER, _depthRenderBuffer);
+    
+    //这里使用了glRenderbufferStorage, 然不是context的renderBufferStorage（这个是在OpenGL的view中特别为color render buffer而设的）
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, self.frame.size.width, self.frame.size.height);
 }
 
@@ -269,36 +281,43 @@ const GLubyte Indices[] = {
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
                               GL_RENDERBUFFER, _colorRenderBuffer);
     
+    //将_depthRenderBuffer依附在framebuffer的GL_DEPTH_ATTACHMENT位置上
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, _depthRenderBuffer);
 }
 
-//清理屏幕
+//渲染
 - (void)render:(CADisplayLink *)displayLink {
     
-    //为了尽快在屏幕上显示一些什么，在我们和那些 vertexes、shaders打交道之前，把屏幕清理一下，显示另一个颜色吧。（RGB 0, 104, 55，绿色吧）
-    /*
-     下面解析一下每一步动作：
-     1.调用glClearColor ，设置一个RGB颜色和透明度，接下来会用这个颜色涂满全屏。
-     2.调用glClear来进行这个“填色”的动作（大概就是photoshop那个油桶嘛）。还记得前面说过有很多buffer的话，这里我们要用到GL_COLOR_BUFFER_BIT来声明要清理哪一个缓冲区。
-     3.调用OpenGL context的presentRenderbuffer方法，把缓冲区（render buffer和color buffer）的颜色呈现到UIView上。
-     */
-//    glClearColor(0, 104.0/255.0, 55.0/255.0, 1.0);
-//    glClear(GL_COLOR_BUFFER_BIT);
-//    [_context presentRenderbuffer:GL_RENDERBUFFER];
+   
+//     3.调用OpenGL context的presentRenderbuffer方法，把缓冲区（render buffer和color buffer）的颜色呈现到UIView上。
     
+    //调用glClearColor ，设置一个RGB颜色和透明度，接下来会用这个颜色涂满全屏。
     glClearColor(0, 104.0/255.0, 55.0/255.0, 1.0);
-//    glClear(GL_COLOR_BUFFER_BIT);
+    
+    //调用glClear来进行这个“填色”的动作 参数声明清理哪一个缓存区 这里是颜色和深度两个缓冲区
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    //并启用depth  testing
     glEnable(GL_DEPTH_TEST);
     
+    //创建投影矩阵
     CC3GLMatrix *projection = [CC3GLMatrix matrix];
-    float h =4.0f* self.frame.size.height / self.frame.size.width;
-    [projection populateFromFrustumLeft:-2 andRight:2 andBottom:-h/2 andTop:h/2 andNear:4 andFar:10];
+    //指定左右上下和远近平面
+    /*
+     相当于指定摄像头视图范围，左右上下指的是近平面的点位置，远平面会根据距离自己计算比例。
+     只能看到远平面和近平面之间的物体。
+     物体放入会按近平面比例进行变形
+     */
+    CGFloat h = self.frame.size.height/self.frame.size.width;
+    //四点构成正方向平面
+    [projection populateFromFrustumLeft:-2 andRight:2 andBottom:-h*2 andTop:h*2 andNear:2 andFar:10];
     glUniformMatrix4fv(_projectionUniform, 1, 0, projection.glMatrix);
     
+    //创建变形矩阵
     CC3GLMatrix *modelView = [CC3GLMatrix matrix];
     float x = sin(CACurrentMediaTime());
-    float z = fabs(x)*4-9.5;
+    float z = fabs(x)*5.18-8.59;
+    
     [modelView populateFromTranslation:CC3VectorMake(x, 0, z)];
     _currentRotation += displayLink.duration *90;
     [modelView rotateBy:CC3VectorMake(_currentRotation, _currentRotation, 0)];
