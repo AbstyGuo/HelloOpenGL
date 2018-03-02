@@ -17,10 +17,10 @@ typedef struct {
 
 //定义了以Vertex结构为类型的array。
 const Vertex Vertices[] = {
-    {{1, -1, -7}, {1, 0, 0, 1}},
-    {{1, 1, -7}, {0, 1, 0, 1}},
-    {{-1, 1, -7}, {0, 0, 1, 1}},
-    {{-1, -1, -7}, {0, 0, 0, 1}}
+    {{1, -1, 0}, {1, 0, 0, 1}},
+    {{1, 1, 0}, {0, 1, 0, 1}},
+    {{-1, 1, 0}, {0, 0, 1, 1}},
+    {{-1, -1, 0}, {0, 0, 0, 1}}
 };
 
 //一个用于表示三角形顶点的数组。
@@ -108,6 +108,12 @@ const GLubyte Indices[] = {
     glEnableVertexAttribArray(_colorSlot);
     
     _projectionUniform = glGetUniformLocation(programHandle, "Projection");
+    _modelViewUniform = glGetUniformLocation(programHandle, "Modelview");
+}
+
+- (void)setupDisplayLink {
+    CADisplayLink* displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(render:)];
+    [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
 
@@ -122,7 +128,7 @@ const GLubyte Indices[] = {
         [self compileShaders];
         [self setupVBOs];
         
-        [self render];
+        [self setupDisplayLink];
 
     }
     return self;
@@ -225,7 +231,7 @@ const GLubyte Indices[] = {
 }
 
 //清理屏幕
-- (void)render {
+- (void)render:(CADisplayLink *)displayLink {
     
     //为了尽快在屏幕上显示一些什么，在我们和那些 vertexes、shaders打交道之前，把屏幕清理一下，显示另一个颜色吧。（RGB 0, 104, 55，绿色吧）
     /*
@@ -245,6 +251,12 @@ const GLubyte Indices[] = {
     float h =4.0f* self.frame.size.height / self.frame.size.width;
     [projection populateFromFrustumLeft:-2 andRight:2 andBottom:-h/2 andTop:h/2 andNear:4 andFar:10];
     glUniformMatrix4fv(_projectionUniform, 1, 0, projection.glMatrix);
+    
+    CC3GLMatrix *modelView = [CC3GLMatrix matrix];
+    float x = sin(CACurrentMediaTime());
+    float z = fabs(x)*-4;
+    [modelView populateFromTranslation:CC3VectorMake(x, 0, z)];
+    glUniformMatrix4fv(_modelViewUniform, 1, 0, modelView.glMatrix);
     
     //1.调用glViewport 设置UIView中用于渲染的部分。这个例子中指定了整个屏幕。但如果你希望用更小的部分，你可以更变这些参数。
     glViewport(0, 0, self.frame.size.width, self.frame.size.height);
