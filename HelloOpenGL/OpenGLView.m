@@ -13,7 +13,22 @@
 typedef struct {
     float Position[3]; //位置 x,y,z
     float Color[4];    //颜色 r,g,b,a
+    float TexCoords[2];//纹理 x,y   坐标系以左上角为（0，0）
 } Vertex;
+
+/*
+ TexCoords中的两个数 x,y解释
+ 一般纹理会使用一张图片，x表示横向的图片数量，如果2，则横向填充会使用两张图片，如果是0.5，则纹理使用时横向只会填充图片的一半
+ y表示纵向的图片数量，如果1，则使用1张图片进行填充
+ 因为opengl只能使用三角形填充，所以填充纹理会跟顶点的顺序有关
+ 图片  a---------b    填充图像  0----------1
+      |         |             |          |
+      |         |             |          |
+      c---------d             2----------3
+   比如顶点顺序为 0，1，2  而对应的纹理坐标为 b,c,d
+   那么填充时 0 将对应b点的图像，1将对应c点的图像，2将对应d 点的图像，可能的结果就是三角形填充的图片被切掉或者翻转或者被拉伸
+ */
+
 
 ////定义了以Vertex结构为类型的array。
 //const Vertex Vertices[] = {
@@ -29,39 +44,103 @@ typedef struct {
 //    2, 3, 0
 //};
 
-//立体顶点数组
+#define TEX_COORD_MAX 2  //表示在该方向上的使用的图片的数量
+
 const Vertex Vertices[] = {
-    {{1, -1, 0}, {1, 0, 0, 1}},
-    {{1, 1, 0}, {1, 0, 1, 1}},
-    {{-1, 1, 0}, {1, 1, 0, 1}},
-    {{-1, -1, 0}, {0, 1, 0, 1}},
-    {{1, -1, -1}, {0, 1, 1, 1}},
-    {{1, 1, -1}, {0, 0, 1, 1}},
-    {{-1, 1, -1}, {1, 1, 1, 1}},
-    {{-1, -1, -1}, {0, 0, 0, 1}}
+    
+    {{1, -1, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},
+    {{1, 1, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, 0}},
+    {{-1, 1, 0}, {0, 1, 0, 1}, {0, 0}},
+//    {{-1, -1, 0}, {0, 1, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},
+//    {{1, -1, -2}, {1, 0, 0, 1}, {TEX_COORD_MAX, 0}},
+//    {{1, 1, -2}, {1, 0, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},
+//    {{-1, 1, -2}, {0, 1, 0, 1}, {0, TEX_COORD_MAX}},
+//    {{-1, -1, -2}, {0, 1, 0, 1}, {0, 0}}
 };
 
 const GLubyte Indices[] = {
     // Front
     0, 1, 2,
-    2, 3, 0,
-    // Back
-    4, 6, 5,
-    4, 7, 6,
-    // Left
-    2, 7, 3,
-    7, 6, 2,
-    // Right
-    0, 4, 1,
-    4, 1, 5,
-    // Top
-    6, 2, 1,
-    1, 6, 5,
-    // Bottom
-    0, 3, 7,
-    0, 7, 4
+//    2, 3, 0,
+//    // Back
+//    4, 6, 5,
+//    4, 7, 6,
+//    // Left
+//    2, 6, 7,
+//    2, 7, 3,
+//    // Right
+//    0, 4, 1,
+//    4, 1, 5,
+//   // Top
+//    6, 2, 1,
+//    1, 6, 5,
+//    // Bottom
+//    0, 3, 7,
+//    0, 7, 4
 };
 
+////立体顶点数组
+//const Vertex Vertices[] = {
+//
+//    {{0, 1, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},              //头
+//    {{-0.5, 0.5, 0}, {1, 0, 0, 1}, {0, TEX_COORD_MAX}},         //左上尖
+//    {{-0.25, 0.5, 0}, {1, 0, 0, 1}, {0, 0}},        //左上支
+//    {{-0.25, -0.5, 0}, {0, 1, 0, 1}, {TEX_COORD_MAX, 0}},       //左下支
+//    {{-0.5, -0.5, 0}, {0, 1, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},        //左下尖
+//    {{0, -1, 0}, {0, 1, 0, 1}, {TEX_COORD_MAX, 0}},             //尾
+//    {{0.5, -0.5, 0}, {0, 1, 0, 1}, {0, 0}},         //右下尖
+//    {{0.25, -0.5, 0}, {0, 1, 0, 1}, {0, TEX_COORD_MAX}},        //右下支
+//    {{0.25, 0.5, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},         //右上支
+//    {{0.5, 0.5, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, 0}},          //右上尖
+//
+//    {{0, 1, -1}, {0, 0, 1, 1}, {0, 0}},              //头
+//    {{-0.5, 0.5, -1}, {0, 0, 1, 1}, {TEX_COORD_MAX, 0}},         //左上尖
+//    {{-0.25, 0.5, -1}, {0, 0, 1, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},        //左上支
+//    {{-0.25, -0.5, -1}, {0, 0.5, 0.2, 1}, {0, TEX_COORD_MAX}},   //左下支
+//    {{-0.5, -0.5, -1}, {0, 0.5, 0.2, 1}, {0, 0}},    //左下尖
+//    {{0, -1, -1}, {0, 0.5, 0.2, 1}, {0, TEX_COORD_MAX}},         //尾
+//    {{0.5, -0.5, -1}, {0, 0.5, 0.2, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},     //右下尖
+//    {{0.25, -0.5, -1}, {0, 0.5, 0.2, 1}, {TEX_COORD_MAX, 0}},    //右下支
+//    {{0.25, 0.5, -1}, {0, 0, 1, 1}, {0, 0}},         //右上支
+//    {{0.5, 0.5, -1}, {0, 0, 1, 1}, {0, TEX_COORD_MAX}},          //右上尖
+//};
+//
+//const GLubyte Indices[] = {
+//    // Front
+//    0,1,9,
+//    3,2,8,
+//    8,3,7,
+//    4,5,6,
+//    // Back
+//    10,11,19,
+//    13,12,18,
+//    18,13,17,
+//    14,15,16,
+//    // Left
+//    0,1,10,
+//    1,10,11,
+//    1,2,11,
+//    11,12,2,
+//    2,3,12,
+//    3,12,13,
+//    3,4,13,
+//    13,14,4,
+//    4,5,14,
+//    14,15,5,
+//    // Right
+//    0,9,10,
+//    9,10,19,
+//    8,9,18,
+//    18,19,9,
+//    8,7,17,
+//    8,17,18,
+//    6,7,17,
+//    16,17,6,
+//    6,5,15,
+//    15,16,6,
+//
+//};
+//
 
 
 @implementation OpenGLView
@@ -144,6 +223,10 @@ const GLubyte Indices[] = {
     
     _projectionUniform = glGetUniformLocation(programHandle, "Projection");
     _modelViewUniform = glGetUniformLocation(programHandle, "Modelview");
+    
+    _texCoordSlot = glGetAttribLocation(programHandle, "TexCoordIn");
+    _textureUniform = glGetUniformLocation(programHandle, "Texture");
+    glEnableVertexAttribArray(_texCoordSlot);
 }
 
 //启用定时器
@@ -166,7 +249,8 @@ const GLubyte Indices[] = {
         [self setupVBOs];         //初始化顶点缓存
         
         [self setupDisplayLink];  //开启定时器
-
+        _floorTexture = [self setupTexture:@"0.jpeg"];
+        
     }
     return self;
 }
@@ -174,6 +258,34 @@ const GLubyte Indices[] = {
 - (void)dealloc
 {
     _context = nil;
+}
+
+// 读取图像数据宽度文件名
+- (GLuint)setupTexture:(NSString *)fileName {
+    CGImageRef spriteImage = [UIImage imageNamed:fileName].CGImage;
+    if (!spriteImage) {
+        NSLog(@"Failed to load image %@", fileName);
+        exit(1);
+    }
+    
+    size_t width = CGImageGetWidth(spriteImage);
+    size_t height = CGImageGetHeight(spriteImage);
+    GLubyte *spriteData = (GLubyte *)calloc(width*height*4, sizeof(GLubyte));
+    CGContextRef spriteContext = CGBitmapContextCreate(spriteData, width, height, 8, width*4, CGImageGetColorSpace(spriteImage), kCGImageAlphaPremultipliedLast);
+    
+    CGContextDrawImage(spriteContext, CGRectMake(0, 0, width, height), spriteImage);
+    CGContextRelease(spriteContext);
+    
+    GLuint texName;
+    glGenTextures(1, &texName);
+    glBindTexture(GL_TEXTURE_2D, texName);
+    
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
+    
+    free(spriteData);
+    return texName;
 }
 
 - (void)setupVBOs {
@@ -319,12 +431,17 @@ const GLubyte Indices[] = {
     float z = fabs(x)*5.18-8.59;
     
     [modelView populateFromTranslation:CC3VectorMake(x, 0, z)];
-    _currentRotation += displayLink.duration *90;
-    [modelView rotateBy:CC3VectorMake(_currentRotation, _currentRotation, 0)];
+//    _currentRotation += displayLink.duration *90;
+//    [modelView rotateBy:CC3VectorMake(_currentRotation, _currentRotation, 0)];
     glUniformMatrix4fv(_modelViewUniform, 1, 0, modelView.glMatrix);
     
     //1.调用glViewport 设置UIView中用于渲染的部分。这个例子中指定了整个屏幕。但如果你希望用更小的部分，你可以更变这些参数。
     glViewport(0, 0, self.frame.size.width, self.frame.size.height);
+    
+    //纹理相关
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, _floorTexture);
+    glUniform1i(_textureUniform, 0);
     
     /*
      2.调用glVertexAttribPointer来为vertex shader的两个输入参数配置两个合适的值
@@ -335,11 +452,12 @@ const GLubyte Indices[] = {
          ·第五个，指 stride 的大小。这是一个种描述每个 vertex数据大小的方式。所以我们可以简单地传入 sizeof（Vertex），让编译器计算出来就好。
          ·最后一个，是这个数据结构的偏移量。表示在这个结构中，从哪里开始获取我们的值。Position的值在前面，所以传0进去就可以了。而颜色是紧接着位置的数据，而position的大小是3个float的大小，所以是从 3 * sizeof(float) 开始的。
      */
-    
     glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE,
                           sizeof(Vertex), 0);
     glVertexAttribPointer(_colorSlot, 4, GL_FLOAT, GL_FALSE,
                           sizeof(Vertex), (GLvoid*) (sizeof(float) *3));
+    glVertexAttribPointer(_texCoordSlot, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid *)(sizeof(float) * 7));
+
     
     /*
      3.调用glDrawElements ，它最后会在每个vertex上调用我们的vertex shader，以及每个像素调用fragment shader，最终画出我们的矩形。

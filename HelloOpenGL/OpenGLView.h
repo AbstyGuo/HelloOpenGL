@@ -19,12 +19,14 @@
     
     GLuint _positionSlot;           //位置跟踪
     GLuint _colorSlot;              //颜色跟踪
+    GLuint _texCoordSlot;           //纹理
     GLuint _projectionUniform;      //投影均衡
     GLuint _modelViewUniform;       //变形均衡（放大缩小旋转）
     float _currentRotation;         //标记当前旋转角度
     
     GLuint _depthRenderBuffer;      //深度渲染缓冲区
-
+    GLuint _floorTexture;           //纹理标记
+    GLuint _textureUniform;         //纹理均衡
 }
 
 @end
