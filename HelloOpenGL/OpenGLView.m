@@ -46,104 +46,111 @@ typedef struct {
 
 #define TEX_COORD_MAX 2  //表示在该方向上的使用的图片的数量
 
+//const Vertex Vertices[] = {
+//
+//    {{1, -1, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},
+//    {{1, 1, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, 0}},
+//    {{-1, 1, 0}, {0, 1, 0, 1}, {0, 0}},
+////    {{-1, -1, 0}, {0, 1, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},
+////    {{1, -1, -2}, {1, 0, 0, 1}, {TEX_COORD_MAX, 0}},
+////    {{1, 1, -2}, {1, 0, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},
+////    {{-1, 1, -2}, {0, 1, 0, 1}, {0, TEX_COORD_MAX}},
+////    {{-1, -1, -2}, {0, 1, 0, 1}, {0, 0}}
+//};
+
+//const GLubyte Indices[] = {
+//    // Front
+//    0, 1, 2,
+////    2, 3, 0,
+////    // Back
+////    4, 6, 5,
+////    4, 7, 6,
+////    // Left
+////    2, 6, 7,
+////    2, 7, 3,
+////    // Right
+////    0, 4, 1,
+////    4, 1, 5,
+////   // Top
+////    6, 2, 1,
+////    1, 6, 5,
+////    // Bottom
+////    0, 3, 7,
+////    0, 7, 4
+//};
+
+//立体顶点数组
 const Vertex Vertices[] = {
-    
-    {{1, -1, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},
-    {{1, 1, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, 0}},
-    {{-1, 1, 0}, {0, 1, 0, 1}, {0, 0}},
-//    {{-1, -1, 0}, {0, 1, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},
-//    {{1, -1, -2}, {1, 0, 0, 1}, {TEX_COORD_MAX, 0}},
-//    {{1, 1, -2}, {1, 0, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},
-//    {{-1, 1, -2}, {0, 1, 0, 1}, {0, TEX_COORD_MAX}},
-//    {{-1, -1, -2}, {0, 1, 0, 1}, {0, 0}}
+
+    {{0, 1, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},              //头
+    {{-0.5, 0.5, 0}, {1, 0, 0, 1}, {0, TEX_COORD_MAX}},         //左上尖
+    {{-0.25, 0.5, 0}, {1, 0, 0, 1}, {0, 0}},        //左上支
+    {{-0.25, -0.5, 0}, {0, 1, 0, 1}, {TEX_COORD_MAX, 0}},       //左下支
+    {{-0.5, -0.5, 0}, {0, 1, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},        //左下尖
+    {{0, -1, 0}, {0, 1, 0, 1}, {TEX_COORD_MAX, 0}},             //尾
+    {{0.5, -0.5, 0}, {0, 1, 0, 1}, {0, 0}},         //右下尖
+    {{0.25, -0.5, 0}, {0, 1, 0, 1}, {0, TEX_COORD_MAX}},        //右下支
+    {{0.25, 0.5, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},         //右上支
+    {{0.5, 0.5, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, 0}},          //右上尖
+
+    {{0, 1, -1}, {0, 0, 1, 1}, {0, 0}},              //头
+    {{-0.5, 0.5, -1}, {0, 0, 1, 1}, {TEX_COORD_MAX, 0}},         //左上尖
+    {{-0.25, 0.5, -1}, {0, 0, 1, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},        //左上支
+    {{-0.25, -0.5, -1}, {0, 0.5, 0.2, 1}, {0, TEX_COORD_MAX}},   //左下支
+    {{-0.5, -0.5, -1}, {0, 0.5, 0.2, 1}, {0, 0}},    //左下尖
+    {{0, -1, -1}, {0, 0.5, 0.2, 1}, {0, TEX_COORD_MAX}},         //尾
+    {{0.5, -0.5, -1}, {0, 0.5, 0.2, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},     //右下尖
+    {{0.25, -0.5, -1}, {0, 0.5, 0.2, 1}, {TEX_COORD_MAX, 0}},    //右下支
+    {{0.25, 0.5, -1}, {0, 0, 1, 1}, {0, 0}},         //右上支
+    {{0.5, 0.5, -1}, {0, 0, 1, 1}, {0, TEX_COORD_MAX}},          //右上尖
 };
 
 const GLubyte Indices[] = {
     // Front
-    0, 1, 2,
-//    2, 3, 0,
-//    // Back
-//    4, 6, 5,
-//    4, 7, 6,
-//    // Left
-//    2, 6, 7,
-//    2, 7, 3,
-//    // Right
-//    0, 4, 1,
-//    4, 1, 5,
-//   // Top
-//    6, 2, 1,
-//    1, 6, 5,
-//    // Bottom
-//    0, 3, 7,
-//    0, 7, 4
+    0,1,9,
+    3,2,8,
+    8,3,7,
+    4,5,6,
+    // Back
+    10,11,19,
+    13,12,18,
+    18,13,17,
+    14,15,16,
+    // Left
+    0,1,10,
+    1,10,11,
+    1,2,11,
+    11,12,2,
+    2,3,12,
+    3,12,13,
+    3,4,13,
+    13,14,4,
+    4,5,14,
+    14,15,5,
+    // Right
+    0,9,10,
+    9,10,19,
+    8,9,18,
+    18,19,9,
+    8,7,17,
+    8,17,18,
+    6,7,17,
+    16,17,6,
+    6,5,15,
+    15,16,6,
+
 };
 
-////立体顶点数组
-//const Vertex Vertices[] = {
-//
-//    {{0, 1, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},              //头
-//    {{-0.5, 0.5, 0}, {1, 0, 0, 1}, {0, TEX_COORD_MAX}},         //左上尖
-//    {{-0.25, 0.5, 0}, {1, 0, 0, 1}, {0, 0}},        //左上支
-//    {{-0.25, -0.5, 0}, {0, 1, 0, 1}, {TEX_COORD_MAX, 0}},       //左下支
-//    {{-0.5, -0.5, 0}, {0, 1, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},        //左下尖
-//    {{0, -1, 0}, {0, 1, 0, 1}, {TEX_COORD_MAX, 0}},             //尾
-//    {{0.5, -0.5, 0}, {0, 1, 0, 1}, {0, 0}},         //右下尖
-//    {{0.25, -0.5, 0}, {0, 1, 0, 1}, {0, TEX_COORD_MAX}},        //右下支
-//    {{0.25, 0.5, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},         //右上支
-//    {{0.5, 0.5, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, 0}},          //右上尖
-//
-//    {{0, 1, -1}, {0, 0, 1, 1}, {0, 0}},              //头
-//    {{-0.5, 0.5, -1}, {0, 0, 1, 1}, {TEX_COORD_MAX, 0}},         //左上尖
-//    {{-0.25, 0.5, -1}, {0, 0, 1, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},        //左上支
-//    {{-0.25, -0.5, -1}, {0, 0.5, 0.2, 1}, {0, TEX_COORD_MAX}},   //左下支
-//    {{-0.5, -0.5, -1}, {0, 0.5, 0.2, 1}, {0, 0}},    //左下尖
-//    {{0, -1, -1}, {0, 0.5, 0.2, 1}, {0, TEX_COORD_MAX}},         //尾
-//    {{0.5, -0.5, -1}, {0, 0.5, 0.2, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},     //右下尖
-//    {{0.25, -0.5, -1}, {0, 0.5, 0.2, 1}, {TEX_COORD_MAX, 0}},    //右下支
-//    {{0.25, 0.5, -1}, {0, 0, 1, 1}, {0, 0}},         //右上支
-//    {{0.5, 0.5, -1}, {0, 0, 1, 1}, {0, TEX_COORD_MAX}},          //右上尖
-//};
-//
-//const GLubyte Indices[] = {
-//    // Front
-//    0,1,9,
-//    3,2,8,
-//    8,3,7,
-//    4,5,6,
-//    // Back
-//    10,11,19,
-//    13,12,18,
-//    18,13,17,
-//    14,15,16,
-//    // Left
-//    0,1,10,
-//    1,10,11,
-//    1,2,11,
-//    11,12,2,
-//    2,3,12,
-//    3,12,13,
-//    3,4,13,
-//    13,14,4,
-//    4,5,14,
-//    14,15,5,
-//    // Right
-//    0,9,10,
-//    9,10,19,
-//    8,9,18,
-//    18,19,9,
-//    8,7,17,
-//    8,17,18,
-//    6,7,17,
-//    16,17,6,
-//    6,5,15,
-//    15,16,6,
-//
-//};
-//
 
 
 @implementation OpenGLView
+{
+    CC3Vector4 _vectory4;
+}
+
+-(void)updateWithX:(CGFloat)x Y:(CGFloat)y Z:(CGFloat)z W:(CGFloat)w{
+    _vectory4 = CC3Vector4Make(x, y, z, w);
+}
 
 //加载资源
 - (GLuint)compileShader:(NSString*)shaderName withType:(GLenum)shaderType {
@@ -427,12 +434,13 @@ const GLubyte Indices[] = {
     
     //创建变形矩阵
     CC3GLMatrix *modelView = [CC3GLMatrix matrix];
-    float x = sin(CACurrentMediaTime());
-    float z = fabs(x)*5.18-8.59;
-    
-    [modelView populateFromTranslation:CC3VectorMake(x, 0, z)];
+//    float x = sin(CACurrentMediaTime());
+//    float z = fabs(x)*5.18-8.59;
+//
+    [modelView populateFromTranslation:CC3VectorMake(0, 0, -4)];
 //    _currentRotation += displayLink.duration *90;
 //    [modelView rotateBy:CC3VectorMake(_currentRotation, _currentRotation, 0)];
+    [modelView rotateByQuaternion:_vectory4];
     glUniformMatrix4fv(_modelViewUniform, 1, 0, modelView.glMatrix);
     
     //1.调用glViewport 设置UIView中用于渲染的部分。这个例子中指定了整个屏幕。但如果你希望用更小的部分，你可以更变这些参数。

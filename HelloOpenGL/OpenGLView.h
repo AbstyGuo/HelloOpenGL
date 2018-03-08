@@ -29,4 +29,6 @@
     GLuint _textureUniform;         //纹理均衡
 }
 
+-(void)updateWithX:(CGFloat)x Y:(CGFloat)y Z:(CGFloat)z W:(CGFloat)w;
+
 @end
