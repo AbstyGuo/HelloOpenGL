@@ -23,7 +23,6 @@
 		E057A9E32048E5A300477C41 /* CC3Math.m in Sources */ = {isa = PBXBuildFile; fileRef = E057A9DE2048E5A200477C41 /* CC3Math.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E0757C0A204FC33000CAC88E /* tile_floor.png in Resources */ = {isa = PBXBuildFile; fileRef = E0757C09204FC33000CAC88E /* tile_floor.png */; };
 		E0757C10204FD07C00CAC88E /* 0.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E0757C0F204FD07C00CAC88E /* 0.jpeg */; };
-		E0E7EE32204E91970089B570 /* SYSensorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E7EE30204E91960089B570 /* SYSensorManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,8 +67,6 @@
 		E057A9DF2048E5A200477C41 /* ccTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ccTypes.h; sourceTree = "<group>"; };
 		E0757C09204FC33000CAC88E /* tile_floor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tile_floor.png; sourceTree = "<group>"; };
 		E0757C0F204FD07C00CAC88E /* 0.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 0.jpeg; sourceTree = "<group>"; };
-		E0E7EE30204E91960089B570 /* SYSensorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYSensorManager.m; sourceTree = "<group>"; };
-		E0E7EE31204E91960089B570 /* SYSensorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYSensorManager.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,8 +118,6 @@
 				E020B6DF2047F17100CC6070 /* ViewController.m */,
 				E020B7022047F20600CC6070 /* OpenGLView.h */,
 				E020B7032047F20600CC6070 /* OpenGLView.m */,
-				E0E7EE31204E91960089B570 /* SYSensorManager.h */,
-				E0E7EE30204E91960089B570 /* SYSensorManager.m */,
 				E020B7052047F6D800CC6070 /* SimpleVertex.glsl */,
 				E020B7072047F77900CC6070 /* SimpleFragment.glsl */,
 				E020B6E12047F17100CC6070 /* Main.storyboard */,
@@ -278,7 +273,6 @@
 				E057A9E22048E5A300477C41 /* CC3Kazmath.c in Sources */,
 				E020B6E02047F17100CC6070 /* ViewController.m in Sources */,
 				E020B6EB2047F17100CC6070 /* main.m in Sources */,
-				E0E7EE32204E91970089B570 /* SYSensorManager.m in Sources */,
 				E020B6DD2047F17100CC6070 /* AppDelegate.m in Sources */,
 				E057A9E02048E5A300477C41 /* CC3Foundation.m in Sources */,
 				E020B7042047F20600CC6070 /* OpenGLView.m in Sources */,
