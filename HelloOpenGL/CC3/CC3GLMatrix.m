@@ -963,6 +963,7 @@ static const GLfloat identityContents[] = { 1.0f, 0.0f, 0.0f, 0.0f,
 														withMatrix: aGLMatrix]);
 }
 
+//变化齐次向量
 +(CC3Vector4) transformHomogeneousVector: (CC3Vector4) aVector withMatrix: (GLfloat*) aGLMatrix {
 	CC3Vector4 vOut;
 	GLfloat* m = aGLMatrix;					// Make a simple alias

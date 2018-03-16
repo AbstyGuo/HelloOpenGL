@@ -423,13 +423,14 @@ const GLubyte Indices[] = {
     CC3GLMatrix *projection = [CC3GLMatrix matrix];
     //指定左右上下和远近平面
     /*
-     相当于指定摄像头视图范围，左右上下指的是近平面的点位置，远平面会根据距离自己计算比例。
+     相当于指定摄像头视图范围，左右上下指的是近平面的边位置，远平面会根据距离自己计算比例。
      只能看到远平面和近平面之间的物体。
      物体放入会按近平面比例进行变形
      */
     CGFloat h = self.frame.size.height/self.frame.size.width;
-    //四点构成正方向平面
+    //四点构成正方向平面,构建投影矩阵
     [projection populateFromFrustumLeft:-2 andRight:2 andBottom:-h*2 andTop:h*2 andNear:2 andFar:10];
+    //将矩阵传递到simpleVertex.glsl文件中去
     glUniformMatrix4fv(_projectionUniform, 1, 0, projection.glMatrix);
     
     //创建变形矩阵
@@ -437,6 +438,7 @@ const GLubyte Indices[] = {
 //    float x = sin(CACurrentMediaTime());
 //    float z = fabs(x)*5.18-8.59;
 //
+    //设置位移矩阵
     [modelView populateFromTranslation:CC3VectorMake(0, 0, -4)];
 //    _currentRotation += displayLink.duration *90;
 //    [modelView rotateBy:CC3VectorMake(_currentRotation, _currentRotation, 0)];
@@ -477,7 +479,21 @@ const GLubyte Indices[] = {
     glDrawElements(GL_TRIANGLES, sizeof(Indices)/sizeof(Indices[0]),
                    GL_UNSIGNED_BYTE, 0);
     
+    /* 另一种绘图
+     第一个参数 mode 可选项有
+     GL_POINTS                              画点
+     #define GL_LINES                       任意两点相连  不连续的线
+     #define GL_LINE_LOOP                   按数组顺序从头到尾连线并闭合
+     #define GL_LINE_STRIP                  按数组顺序从头到尾连线不闭合
+     #define GL_TRIANGLES                   三角形
+     #define GL_TRIANGLE_STRIP              相邻3点连三角形，三角形相邻
+     #define GL_TRIANGLE_FAN                以一个点为顶点，连接其余的相邻两点组成三角形
+     glDrawArrays(<#GLenum mode#>, <#GLint first#>, <#GLsizei count#>)
+
+     */
+    
     [_context presentRenderbuffer:GL_RENDERBUFFER];
+    
 }
 
 

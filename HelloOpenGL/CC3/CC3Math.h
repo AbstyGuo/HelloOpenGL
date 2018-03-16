@@ -57,7 +57,7 @@
 /**
  * Returns the positive modulo remainder of value divided by period.
  *
- * This function is similar to fmod() (and uses fmod()), but converts a negative result
+ * This function is similar to fmod(void) (and uses fmod(void)), but converts a negative result
  * into a positive value that is the same distance away from the end of the cycle as the
  * result was below zero. In this sense, this function behaves like the numbers on a clock,
  * and Cyclic(-2.0, 12.0) will return 10.0 rather than -2.0. 
@@ -81,19 +81,19 @@ float CyclicDifference(float minuend, float subtrahend, float period);
 #pragma mark Random number generation
 
 /** Returns a random unsigned integer over the full unsigned interger range (between 0 and 0xFFFFFFFF). */
-unsigned int RandomUInt();
+unsigned int RandomUInt(void);
 
 /** Returns a random unsigned integer between 0 inclusive and the specified max exclusive. */
 unsigned int RandomUIntBelow(unsigned int max);
 
 /** Returns a random double between 0.0 inclusive and 1.0 exclusive. */
-double RandomDouble();
+double RandomDouble(void);
 
 /** Returns a random double between the specified min inclusive and the specified max exclusive. */
 double RandomDoubleBetween(double min, double max);
 
 /** Returns a random float between 0.0 inclusive and 1.0 exclusive. */
-float RandomFloat();
+float RandomFloat(void);
 
 /** Returns a random float between the specified min inclusive and the specified max exclusive. */
 float RandomFloatBetween(float min, float max);
