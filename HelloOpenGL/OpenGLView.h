@@ -27,6 +27,9 @@
     GLuint _depthRenderBuffer;      //深度渲染缓冲区
     GLuint _floorTexture;           //纹理标记
     GLuint _textureUniform;         //纹理均衡
+    
+    GLuint _lightTexture;
+    GLuint _lightUniform;
 }
 
 -(void)updateWithX:(CGFloat)x Y:(CGFloat)y Z:(CGFloat)z W:(CGFloat)w;

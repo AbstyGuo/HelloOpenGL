@@ -427,15 +427,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 6452BQV88S;
+				DEVELOPMENT_TEAM = AK26ZWGWUT;
 				INFOPLIST_FILE = HelloOpenGL/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ganpurj.BangTravels;
+				PRODUCT_BUNDLE_IDENTIFIER = com.navinfo.weDriveLauncher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9118cd73-d4dd-4fce-8845-93a37ee31557";
-				PROVISIONING_PROFILE_SPECIFIER = BangTravelsDevelopment;
+				PROVISIONING_PROFILE = "ee28f3b9-6c0e-44f2-ace7-d9e007e1dd0d";
+				PROVISIONING_PROFILE_SPECIFIER = mapbar_Develop_Launcher;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -444,15 +445,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 6452BQV88S;
+				DEVELOPMENT_TEAM = AK26ZWGWUT;
 				INFOPLIST_FILE = HelloOpenGL/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ganpurj.BangTravels;
+				PRODUCT_BUNDLE_IDENTIFIER = com.navinfo.weDriveLauncher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9118cd73-d4dd-4fce-8845-93a37ee31557";
-				PROVISIONING_PROFILE_SPECIFIER = BangTravelsDevelopment;
+				PROVISIONING_PROFILE = "ee28f3b9-6c0e-44f2-ace7-d9e007e1dd0d";
+				PROVISIONING_PROFILE_SPECIFIER = mapbar_Develop_Launcher;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

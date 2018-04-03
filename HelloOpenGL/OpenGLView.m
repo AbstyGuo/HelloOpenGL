@@ -44,102 +44,102 @@ typedef struct {
 //    2, 3, 0
 //};
 
-#define TEX_COORD_MAX 2  //表示在该方向上的使用的图片的数量
+#define TEX_COORD_MAX 1  //表示在该方向上的使用的图片的数量
 
-//const Vertex Vertices[] = {
-//
-//    {{1, -1, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},
-//    {{1, 1, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, 0}},
-//    {{-1, 1, 0}, {0, 1, 0, 1}, {0, 0}},
-////    {{-1, -1, 0}, {0, 1, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},
-////    {{1, -1, -2}, {1, 0, 0, 1}, {TEX_COORD_MAX, 0}},
-////    {{1, 1, -2}, {1, 0, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},
-////    {{-1, 1, -2}, {0, 1, 0, 1}, {0, TEX_COORD_MAX}},
-////    {{-1, -1, -2}, {0, 1, 0, 1}, {0, 0}}
-//};
-
-//const GLubyte Indices[] = {
-//    // Front
-//    0, 1, 2,
-////    2, 3, 0,
-////    // Back
-////    4, 6, 5,
-////    4, 7, 6,
-////    // Left
-////    2, 6, 7,
-////    2, 7, 3,
-////    // Right
-////    0, 4, 1,
-////    4, 1, 5,
-////   // Top
-////    6, 2, 1,
-////    1, 6, 5,
-////    // Bottom
-////    0, 3, 7,
-////    0, 7, 4
-//};
-
-//立体顶点数组
 const Vertex Vertices[] = {
 
-    {{0, 1, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},              //头
-    {{-0.5, 0.5, 0}, {1, 0, 0, 1}, {0, TEX_COORD_MAX}},         //左上尖
-    {{-0.25, 0.5, 0}, {1, 0, 0, 1}, {0, 0}},        //左上支
-    {{-0.25, -0.5, 0}, {0, 1, 0, 1}, {TEX_COORD_MAX, 0}},       //左下支
-    {{-0.5, -0.5, 0}, {0, 1, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},        //左下尖
-    {{0, -1, 0}, {0, 1, 0, 1}, {TEX_COORD_MAX, 0}},             //尾
-    {{0.5, -0.5, 0}, {0, 1, 0, 1}, {0, 0}},         //右下尖
-    {{0.25, -0.5, 0}, {0, 1, 0, 1}, {0, TEX_COORD_MAX}},        //右下支
-    {{0.25, 0.5, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},         //右上支
-    {{0.5, 0.5, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, 0}},          //右上尖
-
-    {{0, 1, -1}, {0, 0, 1, 1}, {0, 0}},              //头
-    {{-0.5, 0.5, -1}, {0, 0, 1, 1}, {TEX_COORD_MAX, 0}},         //左上尖
-    {{-0.25, 0.5, -1}, {0, 0, 1, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},        //左上支
-    {{-0.25, -0.5, -1}, {0, 0.5, 0.2, 1}, {0, TEX_COORD_MAX}},   //左下支
-    {{-0.5, -0.5, -1}, {0, 0.5, 0.2, 1}, {0, 0}},    //左下尖
-    {{0, -1, -1}, {0, 0.5, 0.2, 1}, {0, TEX_COORD_MAX}},         //尾
-    {{0.5, -0.5, -1}, {0, 0.5, 0.2, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},     //右下尖
-    {{0.25, -0.5, -1}, {0, 0.5, 0.2, 1}, {TEX_COORD_MAX, 0}},    //右下支
-    {{0.25, 0.5, -1}, {0, 0, 1, 1}, {0, 0}},         //右上支
-    {{0.5, 0.5, -1}, {0, 0, 1, 1}, {0, TEX_COORD_MAX}},          //右上尖
+    {{1, -1, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},
+    {{1, 1, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, 0}},
+    {{-1, 1, 0}, {0, 1, 0, 1}, {0, 0}},
+    {{-1, -1, 0}, {0, 1, 0, 1}, {0, TEX_COORD_MAX}},
+    {{1, -1, -2}, {1, 0, 0, 1}, {0, 0}},
+    {{1, 1, -2}, {1, 0, 0, 1}, {0, TEX_COORD_MAX}},
+    {{-1, 1, -2}, {0, 1, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},
+    {{-1, -1, -2}, {0, 1, 0, 1}, {TEX_COORD_MAX, 0}}
 };
 
 const GLubyte Indices[] = {
     // Front
-    0,1,9,
-    3,2,8,
-    8,3,7,
-    4,5,6,
+    0, 1, 2,
+    2, 3, 0,
     // Back
-    10,11,19,
-    13,12,18,
-    18,13,17,
-    14,15,16,
+    4, 6, 5,
+    4, 7, 6,
     // Left
-    0,1,10,
-    1,10,11,
-    1,2,11,
-    11,12,2,
-    2,3,12,
-    3,12,13,
-    3,4,13,
-    13,14,4,
-    4,5,14,
-    14,15,5,
+    2, 6, 7,
+    2, 7, 3,
     // Right
-    0,9,10,
-    9,10,19,
-    8,9,18,
-    18,19,9,
-    8,7,17,
-    8,17,18,
-    6,7,17,
-    16,17,6,
-    6,5,15,
-    15,16,6,
-
+    0, 4, 1,
+    4, 1, 5,
+   // Top
+    6, 2, 1,
+    1, 6, 5,
+    // Bottom
+    0, 3, 7,
+    0, 7, 4
 };
+
+////立体顶点数组
+//const Vertex Vertices[] = {
+//
+//    {{0, 1, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},              //头
+//    {{-0.5, 0.5, 0}, {1, 0, 0, 1}, {0, TEX_COORD_MAX}},         //左上尖
+//    {{-0.25, 0.5, 0}, {1, 0, 0, 1}, {0, 0}},        //左上支
+//    {{-0.25, -0.5, 0}, {0, 1, 0, 1}, {TEX_COORD_MAX, 0}},       //左下支
+//    {{-0.5, -0.5, 0}, {0, 1, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},        //左下尖
+//    {{0, -1, 0}, {0, 1, 0, 1}, {TEX_COORD_MAX, 0}},             //尾
+//    {{0.5, -0.5, 0}, {0, 1, 0, 1}, {0, 0}},         //右下尖
+//    {{0.25, -0.5, 0}, {0, 1, 0, 1}, {0, TEX_COORD_MAX}},        //右下支
+//    {{0.25, 0.5, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},         //右上支
+//    {{0.5, 0.5, 0}, {1, 0, 0, 1}, {TEX_COORD_MAX, 0}},          //右上尖
+//
+//    {{0, 1, -1}, {0, 0, 1, 1}, {0, 0}},              //头
+//    {{-0.5, 0.5, -1}, {0, 0, 1, 1}, {TEX_COORD_MAX, 0}},         //左上尖
+//    {{-0.25, 0.5, -1}, {0, 0, 1, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},        //左上支
+//    {{-0.25, -0.5, -1}, {0, 0.5, 0.2, 1}, {0, TEX_COORD_MAX}},   //左下支
+//    {{-0.5, -0.5, -1}, {0, 0.5, 0.2, 1}, {0, 0}},    //左下尖
+//    {{0, -1, -1}, {0, 0.5, 0.2, 1}, {0, TEX_COORD_MAX}},         //尾
+//    {{0.5, -0.5, -1}, {0, 0.5, 0.2, 1}, {TEX_COORD_MAX, TEX_COORD_MAX}},     //右下尖
+//    {{0.25, -0.5, -1}, {0, 0.5, 0.2, 1}, {TEX_COORD_MAX, 0}},    //右下支
+//    {{0.25, 0.5, -1}, {0, 0, 1, 1}, {0, 0}},         //右上支
+//    {{0.5, 0.5, -1}, {0, 0, 1, 1}, {0, TEX_COORD_MAX}},          //右上尖
+//};
+//
+//const GLubyte Indices[] = {
+//    // Front
+//    0,1,9,
+//    3,2,8,
+//    8,3,7,
+//    4,5,6,
+//    // Back
+//    10,11,19,
+//    13,12,18,
+//    18,13,17,
+//    14,15,16,
+//    // Left
+//    0,1,10,
+//    1,10,11,
+//    1,2,11,
+//    11,12,2,
+//    2,3,12,
+//    3,12,13,
+//    3,4,13,
+//    13,14,4,
+//    4,5,14,
+//    14,15,5,
+//    // Right
+//    0,9,10,
+//    9,10,19,
+//    8,9,18,
+//    18,19,9,
+//    8,7,17,
+//    8,17,18,
+//    6,7,17,
+//    16,17,6,
+//    6,5,15,
+//    15,16,6,
+//
+//};
 
 
 
@@ -206,6 +206,9 @@ const GLubyte Indices[] = {
     GLuint programHandle = glCreateProgram();
     glAttachShader(programHandle, vertexShader);
     glAttachShader(programHandle, fragmentShader);
+    
+    //glDetachShader(programHandle, vertexShader); 使用glDetachShader将连接的着色器从项目中分离
+    
     glLinkProgram(programHandle);
     
     //3.调用 glGetProgramiv  lglGetProgramInfoLog 来检查是否有error，并输出信息。
@@ -219,12 +222,20 @@ const GLubyte Indices[] = {
         exit(1);
     }
     
-    //4.调用 glUseProgram  让OpenGL真正执行你的program
+    //4.调用 glUseProgram  让OpenGL真正执行你的program 激活项目
     glUseProgram(programHandle);
     
     //5.最后，调用 glGetAttribLocation 来获取指向 vertex shader传入变量的指针。以后就可以通过这写指针来使用了。还有调用 glEnableVertexAttribArray来启用这些数据
+    
+    //使用get和bind两种方式获取参数位置
     _positionSlot = glGetAttribLocation(programHandle, "Position");
     _colorSlot = glGetAttribLocation(programHandle, "SourceColor");
+    
+//    _positionSlot = 1;
+//    _colorSlot = 2;
+//    glBindAttribLocation(programHandle, _positionSlot, "Position");
+//    glBindAttribLocation(programHandle, _colorSlot, "SourceColor");
+    
     glEnableVertexAttribArray(_positionSlot);
     glEnableVertexAttribArray(_colorSlot);
     
@@ -233,6 +244,7 @@ const GLubyte Indices[] = {
     
     _texCoordSlot = glGetAttribLocation(programHandle, "TexCoordIn");
     _textureUniform = glGetUniformLocation(programHandle, "Texture");
+    _lightUniform = glGetUniformLocation(programHandle, "lightMap");
     glEnableVertexAttribArray(_texCoordSlot);
 }
 
@@ -257,7 +269,7 @@ const GLubyte Indices[] = {
         
         [self setupDisplayLink];  //开启定时器
         _floorTexture = [self setupTexture:@"0.jpeg"];
-        
+        _lightTexture = [self setupTexture:@"0.jpeg"];
     }
     return self;
 }
@@ -284,12 +296,41 @@ const GLubyte Indices[] = {
     CGContextRelease(spriteContext);
     
     GLuint texName;
+    //使用glGenTextures获取贴图对象  glGenTexturesshanc 贴图对象
     glGenTextures(1, &texName);
+    //glBindTexture绑定贴图对象，应用必须绑定贴图对象才能运行它
+    //第一个参数 绑定贴图对象到目标 GL_TEXTURE_2D 或 GL_TEXTURE_CUBE_MAP
     glBindTexture(GL_TEXTURE_2D, texName);
     
+//    glGenerateMipmap(GL_CLAMP_TO_EDGE);
+    
+    /*
+        glTexParameter+ i/iv/f/fv 有四个方法 前两个参数相同 GLenum target, GLenum pname 后一个参数为param类型不同
+            target      绑定贴图对象的目标GL_TEXTURE_2D或GL_TEXTURE_CUBE_MAP
+            pname       设定的参数，可能值是:GL_TEXTURE_MAG_FILTER、GL_TEXTURE_MIN_FILTER、GL_TEXTURE_WRAP_S、GL_TEXTURE_WRAP_T
+            param       设定贴图参数的值
+                        如果 pname 是 GL_TEXTURE_MAG_FILTER, 那么 param 是: GL_NEAREST、GL_LINEAR
+                        如果 pname 是 GL_TEXTURE_MIN_FILTER, 那么 param 是: GL_NEAREST、GL_LINEAR、GL_NEAREST_MIPMAP_NEAREST、GL_NEAREST_MIPMAP_LINEAR、GL_LINEAR_MIPMAP_NEAREST、GL_LINEAR_MIPMAP_LINEAR
+                        如果 pname 是 GL_TEXTURE_WRAP_S 或 GL_TEXTURE_WRAP_R, 那么 param 是: GL_REPEAT、GL_CLAMP_TO_EDGE、GL_MIRRORED_REPEAT
+     
+        GL_NEARESTA 贴图最近的采样点将使用做贴图坐标.
+        GL_LINEARA 双线性(四个点平均)采样点作为贴图坐标.
+     
+     */
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
+    /*
+     glTexImage2D (GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid* pixels)
+     
+        target              指定贴图对象的目标，是 GL_TEXTURE_2D 或着 立方体的一个面(例如, GL_TEXTURE_CUBE_MAP_POSITIVE_X, GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 等等.)
+        level               指定装载的水平。基本的水平是 0，对连续的多级纹理水平不断增加
+        internalFormat      纹理存储的内部格式，可以是: GL_RGBA、GL_RGB、GL_LUMINANCE_ALPHA、GL_LUMINANCE、GL_ALPHA
+        width height        宽高，单位像素
+        border              这个参数被忽略，始终为0
+        type                传入像素数据的类型，能够是: GL_UNSIGNED_BYTE、GL_UNSIGNED_SHORT_4_4_4_4、GL_UNSIGNED_SHORT_5_5_5_1、GL_UNSIGNED_SHORT_5_6_5
+        pixels              实际的像素数据
+     */
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei)width, (GLsizei)height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
     
     free(spriteData);
     return texName;
@@ -304,21 +345,26 @@ const GLubyte Indices[] = {
      */
     //第一种方式
     GLuint vertexBuffer;
-    //glGenBuffers - 创建一个Vertex Buffer 对象
-    glGenBuffers(1, &vertexBuffer);
+    //glGenBuffers - 创建一个Vertex Buffer 对象  对应删除方法glDeleteBuffers
+    glGenBuffers(1, &vertexBuffer); //参数1表示获取几个缓存指针，可以使用数组形式获取多个
     
     //告诉OpenGL我们的vertexBuffer 是指GL_ARRAY_BUFFER
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
     
-    //glBufferData – 把数据传到OpenGL-land
+    //glBufferData – 把数据传到OpenGL-land  使用glBufferData初始化缓存数据对象存储  glBufferSubData更新缓冲区对象存储
     glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
+    
+    /*
+     GL_STATIC_DRAW                 缓冲区对象数据一旦被应用程序指定，多次使用去绘制基元
+     GL_DYNAMIC_DRAW                缓冲区对象数据多次被应用程序指定，多次使用去绘制基元
+     GL_STREAM_DRAW                 缓冲区对象数据一旦被应用程序指定，很少使用去绘制基元
+     */
     
     //第二种方式
     GLuint indexBuffer;
     glGenBuffers(1, &indexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), Indices, GL_STATIC_DRAW);
-    
 }
 
 
@@ -433,13 +479,25 @@ const GLubyte Indices[] = {
     //将矩阵传递到simpleVertex.glsl文件中去
     glUniformMatrix4fv(_projectionUniform, 1, 0, projection.glMatrix);
     
+    /*
+     glUniform函数可以加很多类型，glUniform2f表示有两个float类型的参数 如果后面有v，表示要传指针
+     如： 不带v的 glUniform4i(GLint location, GLint x, GLint y,GLint z, GLint w)
+           带v的 glUniform4iv(GLint location, GLsizei count,const GLint* v)
+     
+     glUniformMatrix4fv (GLint location, GLsizei count, GLboolean transpose, const GLfloat* value);
+     location   赋值常量的位置
+     count      赋值数量
+     transpose  固定为0
+     value      对应类型的指针
+     */
+    
     //创建变形矩阵
     CC3GLMatrix *modelView = [CC3GLMatrix matrix];
 //    float x = sin(CACurrentMediaTime());
 //    float z = fabs(x)*5.18-8.59;
 //
     //设置位移矩阵
-    [modelView populateFromTranslation:CC3VectorMake(0, 0, -4)];
+    [modelView populateFromTranslation:CC3VectorMake(0, 0, -6)];
 //    _currentRotation += displayLink.duration *90;
 //    [modelView rotateBy:CC3VectorMake(_currentRotation, _currentRotation, 0)];
     [modelView rotateByQuaternion:_vectory4];
@@ -447,12 +505,33 @@ const GLubyte Indices[] = {
     
     //1.调用glViewport 设置UIView中用于渲染的部分。这个例子中指定了整个屏幕。但如果你希望用更小的部分，你可以更变这些参数。
     glViewport(0, 0, self.frame.size.width, self.frame.size.height);
+    /*
+     glviewport(x,y,w,h)指定渲染窗口
+     x,y 指定窗口左下角坐标
+     w,h 指定窗口的宽高
+     正常设备坐标 (a,b,c) 转到窗口坐标 (e,d,g) 算法
+     
+     (e,d,g) = (
+                    (w/2)*a+j),
+                    (h/2)*b+k,
+                    (f-n)/2*c+(f+n)/2
+                )
+     其中      j = (x+w)/2  k = (y+h)/2
+              n和f表示深度范围值在 0 - 1间 默认是 0 和 1
+              使用glDepthRange函数设置
+     */
+    
+    
+    
     
     //纹理相关
-    glActiveTexture(GL_TEXTURE0);
+    glActiveTexture(GL_TEXTURE0);  //激活贴图单元
     glBindTexture(GL_TEXTURE_2D, _floorTexture);
     glUniform1i(_textureUniform, 0);
     
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, _lightTexture);
+    glUniform1i(_lightUniform, 1);
     /*
      2.调用glVertexAttribPointer来为vertex shader的两个输入参数配置两个合适的值
          ·第一个参数，声明这个属性的名称，之前我们称之为glGetAttribLocation
@@ -462,13 +541,13 @@ const GLubyte Indices[] = {
          ·第五个，指 stride 的大小。这是一个种描述每个 vertex数据大小的方式。所以我们可以简单地传入 sizeof（Vertex），让编译器计算出来就好。
          ·最后一个，是这个数据结构的偏移量。表示在这个结构中，从哪里开始获取我们的值。Position的值在前面，所以传0进去就可以了。而颜色是紧接着位置的数据，而position的大小是3个float的大小，所以是从 3 * sizeof(float) 开始的。
      */
+    
     glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE,
                           sizeof(Vertex), 0);
     glVertexAttribPointer(_colorSlot, 4, GL_FLOAT, GL_FALSE,
                           sizeof(Vertex), (GLvoid*) (sizeof(float) *3));
     glVertexAttribPointer(_texCoordSlot, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid *)(sizeof(float) * 7));
-
-    
+   
     /*
      3.调用glDrawElements ，它最后会在每个vertex上调用我们的vertex shader，以及每个像素调用fragment shader，最终画出我们的矩形。
          ·第一个参数，声明用哪种特性来渲染图形。有GL_LINE_STRIP 和 GL_TRIANGLE_FAN。然而GL_TRIANGLE是最常用的，特别是与VBO 关联的时候。
@@ -482,17 +561,22 @@ const GLubyte Indices[] = {
     /* 另一种绘图
      第一个参数 mode 可选项有
      GL_POINTS                              画点
-     #define GL_LINES                       任意两点相连  不连续的线
-     #define GL_LINE_LOOP                   按数组顺序从头到尾连线并闭合
-     #define GL_LINE_STRIP                  按数组顺序从头到尾连线不闭合
-     #define GL_TRIANGLES                   三角形
-     #define GL_TRIANGLE_STRIP              相邻3点连三角形，三角形相邻
-     #define GL_TRIANGLE_FAN                以一个点为顶点，连接其余的相邻两点组成三角形
-     glDrawArrays(<#GLenum mode#>, <#GLint first#>, <#GLsizei count#>)
+     #define GL_LINES                       相邻两点相连 0-1 2-3 4-5
+     #define GL_LINE_LOOP                   按数组顺序从头到尾连线并闭合 0-1-2-3-4-0
+     #define GL_LINE_STRIP                  按数组顺序从头到尾连线不闭合 0-1-2-3-4
+     #define GL_TRIANGLES                   三角形 0-1-2 3-4-5
+     #define GL_TRIANGLE_STRIP              相邻3点连三角形，三角形相邻 0-1-2 1-2-3 2-3-4
+     #define GL_TRIANGLE_FAN                以一个点为顶点，连接其余的相邻两点组成三角形 0-1-2 0-2-3 0-3-4
+     glDrawArrays(GLenum mode, GLint first, GLsizei count)
 
+     注：有些情况下不得不在顶点序列中出现很多重复的顶点,若希望减少重复顶点占用的空间,可考虑
+     采用glDrawElements方法来进行物体的绘制. 该方法需要传入顶点索引数组
+     
      */
     
     [_context presentRenderbuffer:GL_RENDERBUFFER];
+    
+    
     
 }
 
